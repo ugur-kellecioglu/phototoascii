@@ -5,14 +5,12 @@
  */
 package com.ugurkellecioglu.asciicode;
 
-import java.awt.Frame;
-
 /**
  *
  * @author ugur
  */
 public class GUI {
     public static void main(String[] args) {
-        MyFrame f = new MyFrame();
+        new MyFrame();
     }
 }
