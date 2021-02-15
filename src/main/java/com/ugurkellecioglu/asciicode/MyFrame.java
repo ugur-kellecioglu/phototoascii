@@ -22,45 +22,42 @@ import javax.swing.*;
  *
  * @author ugur
  */
-public class MyFrame extends JFrame implements ActionListener{
-    
+public class MyFrame extends JFrame implements ActionListener {
+
     FrameController frameController;
+
     public MyFrame() {
         frameController = new FrameController();
-        
-        
-        setTitle("Convert an Image"); 
-        
-        setBounds(300, 90, 900, 500); 
+
+        setTitle("Convert an Image");
+
+        setBounds(300, 90, 900, 500);
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE); 
-        
-  
-        frameController.setContainer(getContentPane()); 
-        
-        frameController.getContainer().setLayout(null); 
-        
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        frameController.setContainer(getContentPane());
+
+        frameController.getContainer().setLayout(null);
+
         this.setVisible(true);
-        
-        
+
         //Choose image file button
         frameController.getChooseFileButton().addActionListener((ActionEvent evt) -> {
-            
+
             int returnVal = frameController.openFileDialog(this);
 
             if (returnVal == JFileChooser.APPROVE_OPTION) {
 
-                    setImagesAndSave();
-            
+                setImagesAndSave();
 
             }
-            });
-        
-        frameController.getStartProcessButton().addActionListener((ActionEvent e) ->{
-                                startProcess();
+        });
+
+        frameController.getStartProcessButton().addActionListener((ActionEvent e) -> {
+            startProcess();
 
         });
-        
+
         frameController.getContainer().add(frameController.getChooseFileButton());
         frameController.getContainer().add(frameController.getTextFieldSize());
         frameController.getContainer().add(frameController.getStartProcessButton());
@@ -69,58 +66,53 @@ public class MyFrame extends JFrame implements ActionListener{
 
     @Override
     public void paint(Graphics g) {
-        if(frameController.getImage() != null){
+        if (frameController.getImage() != null) {
             g.drawImage(frameController.getImage(),
-                frameController.getChooseFileButton().getX() + frameController.getChooseFileButton().getWidth() + 50,
-                frameController.getChooseFileButton().getY(),
-                (frameController.getImage().getHeight(this)/4),
-                (frameController.getImage().getWidth(this)/4), this);
+                    frameController.getChooseFileButton().getX() + frameController.getChooseFileButton().getWidth() + 50,
+                    frameController.getChooseFileButton().getY(),
+                    (frameController.getImage().getHeight(this) / 4),
+                    (frameController.getImage().getWidth(this) / 4), this);
         }
-        
-        if(frameController.getGrayScaleImage() != null && frameController.getImage() != null){
+
+        if (frameController.getGrayScaleImage() != null && frameController.getImage() != null) {
             g.drawImage(frameController.getGrayScaleImage(),
-                frameController.getChooseFileButton().getX() + frameController.getChooseFileButton().getWidth() + (frameController.getImage().getWidth()/4),
-                frameController.getChooseFileButton().getY(),
-                (frameController.getGrayScaleImage().getHeight(this)/4),
-                (frameController.getGrayScaleImage().getWidth(this)/4), this);
+                    frameController.getChooseFileButton().getX() + frameController.getChooseFileButton().getWidth() + (frameController.getImage().getWidth() / 4),
+                    frameController.getChooseFileButton().getY(),
+                    (frameController.getGrayScaleImage().getHeight(this) / 4),
+                    (frameController.getGrayScaleImage().getWidth(this) / 4), this);
         }
     }
 
-    
     @Override
     public void actionPerformed(ActionEvent ae) {
-        
+
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    
+
     }
-    
+
+    String alphabet = "thequickbrownfoxjumpsoverthelazydog";
+
     private char returnStrPos(double g)//takes the grayscale value as parameter
-	{
-		final char str;
+    {
+        final char str;
 
-		if (g >= 230.0) {
-			str = ' ';
-		} else if (g >= 200.0) {
-			str = '.';
-		} else if (g >= 180.0) {
-			str = '*';
-		} else if (g >= 160.0) {
-			str = ':';
-		} else if (g >= 130.0) {
-			str = 'o';
-		} else if (g >= 100.0) {
-			str = '&';
-		} else if (g >= 70.0) {
-			str = '8';
-		} else if (g >= 50.0) {
-			str = '#';
-		} else {
-			str = '@';
-		}
-		return str; // return the character
+        if (g >= 220.0) {
+            str = ' ';
+        } else if (g >= 180.0) {
+            str = '.';
+        } else if (g >= 120.0) {
+            str = '*';
+        } else if (g >= 80.0) {
+            str = '-';
+        } else {
+            int i = (int) (Math.random() * alphabet.length());
+            int y = (int) ((Math.random() * 2) + 1);
+            str = (y % 2 == 0) ? alphabet.charAt(i) : alphabet.toUpperCase().charAt(i);
+        }
+        return str; // return the character
 
-	}
-    
+    }
+
     BufferedImage resizeImage(BufferedImage originalImage, int targetWidth, int targetHeight) throws IOException {
         BufferedImage resizedImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D graphics2D = resizedImage.createGraphics();
@@ -128,9 +120,9 @@ public class MyFrame extends JFrame implements ActionListener{
         graphics2D.dispose();
         return resizedImage;
     }
-    
-    public void setImagesAndSave(){
-    //assign selected image to image variable which is an File object
+
+    public void setImagesAndSave() {
+        //assign selected image to image variable which is an File object
         frameController.setImageFile(frameController.getFileChooser().getSelectedFile());
         try {
             frameController.setImage(ImageIO.read(frameController.getImageFile()));
@@ -155,11 +147,10 @@ public class MyFrame extends JFrame implements ActionListener{
             System.out.println("Kaydedilemedi.");
             Logger.getLogger(MyFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-    
+
     }
-    
-    
-    public void startProcess(){
+
+    public void startProcess() {
         String result = "";
         for (int i = 0; i < frameController.getImage().getHeight(this); i++) {
             for (int j = 0; j < frameController.getImage().getWidth(this); j++) {
@@ -172,7 +163,6 @@ public class MyFrame extends JFrame implements ActionListener{
 
                 int sum = (color.getRed() + color.getGreen() + color.getBlue()) / 3;
                 color = new Color(sum, sum, sum);
-                
 
                 int myColor = color.getRGB();
 
@@ -188,10 +178,8 @@ public class MyFrame extends JFrame implements ActionListener{
             }
             result += "\n";
         }
-            
-        System.out.println(result);
-        
 
+        System.out.println(result);
 
         try {
             frameController.setFileWriter(new FileWriter(frameController.getImageFile().getName() + frameController.getTextFieldSize().getText() + ".txt"));
@@ -214,14 +202,11 @@ public class MyFrame extends JFrame implements ActionListener{
         try {
             // retrieve image
             BufferedImage bi = frameController.getGrayScaleImage();
-            File outputfile = new File(frameController.getImageFile().getName()+"-grayScale.jpg");
+            File outputfile = new File(frameController.getImageFile().getName() + "-grayScale.jpg");
             ImageIO.write(bi, "jpg", outputfile);
         } catch (IOException e) {
             System.out.println(e.toString());
         }
     }
 
-    
-       
-    
 }
