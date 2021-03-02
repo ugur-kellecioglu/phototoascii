@@ -27,16 +27,14 @@ public class MyFrame extends JFrame implements ActionListener {
     final FrameController frameController;
 
     public MyFrame() {
-        frameController = new FrameController();
+        frameController = new FrameController(); //Creates a new controller
 
-        setTitle("Convert an Image");
-
+        setTitle("Convert an Image"); //Change the title of form
         setBounds(300, 90, 900, 500);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLocationRelativeTo(null); // show form at the center of screen
+        setDefaultCloseOperation(EXIT_ON_CLOSE); // if you click X icon, program will close
 
         frameController.setContainer(getContentPane());
-
         frameController.getContainer().setLayout(null);
 
         this.setVisible(true);

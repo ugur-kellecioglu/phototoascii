@@ -1,8 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+This program will convert a giveen photo to ascii characters.
+*/
 package com.ugurkellecioglu.controller;
 
 import com.ugurkellecioglu.asciicode.MyFrame;
@@ -10,9 +8,6 @@ import java.awt.Container;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -24,6 +19,10 @@ import javax.swing.JTextField;
  */
 public class FrameController {
 
+    /*
+        Declerations
+    */
+    
     private Container container;
     private JButton chooseFileButton;
     private JButton startProcessButton;
@@ -40,6 +39,8 @@ public class FrameController {
 
     public FrameController() {
 
+        //Create objects and set their properties.
+        
         fileChooser = new JFileChooser();
 
         label = new JLabel("Shrink Scale:(1 for original size)");
