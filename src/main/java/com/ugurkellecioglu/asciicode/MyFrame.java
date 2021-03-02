@@ -24,7 +24,7 @@ import javax.swing.*;
  */
 public class MyFrame extends JFrame implements ActionListener {
 
-    FrameController frameController;
+    final FrameController frameController;
 
     public MyFrame() {
         frameController = new FrameController();
